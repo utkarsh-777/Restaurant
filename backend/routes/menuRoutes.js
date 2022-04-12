@@ -1,5 +1,5 @@
 import express from "express";
-import menuController from "../controllers/menuController.js";
+import { menuController } from "../controllers/menuController.js";
 import requireLogin from "../middlewares/requireLogin.js";
 
 const router = express.Router();

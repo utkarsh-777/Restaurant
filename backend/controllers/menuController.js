@@ -178,16 +178,16 @@ const removeMenuItem = async (req, res) => {
   }
 };
 
-const removeBulkItems = async (req, res) => {
-  const itemArray = req.body;
+// const removeBulkItems = async (req, res) => {
+//   const itemArray = req.body;
   
-  try {
-    const deleteItems = await MenuItem.deleteMany({ _id: { $in: itemArray } });
-    return;
-  } catch (error) {
-    return;
-  }
-};
+//   try {
+//     const deleteItems = await MenuItem.deleteMany({ _id: { $in: itemArray } });
+//     return;
+//   } catch (error) {
+//     return;
+//   }
+// };
 
 const getAllCategories = async(req, res) => {
   try {
@@ -237,14 +237,14 @@ const getSingleItem = async(req, res) => {
   }
 };
 
-export default {
+export const menuController = {
   addCategory,
   editCategory,
   removeCategory,
   addMenuItem,
   removeMenuItem,
   editMenuItem,
-  removeBulkItems,
+
   getAllCategories,
   getAllItems,
   getSingleCategory,

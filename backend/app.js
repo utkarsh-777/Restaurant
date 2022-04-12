@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import bodyparser from 'body-parser';
 import cors from 'cors';
 
-import keys from "./keys.js";
+import { keys } from "./keys.js";
 import authRoutes from "./routes/authRoutes.js";
 import menuRoutes from "./routes/menuRoutes.js";
 

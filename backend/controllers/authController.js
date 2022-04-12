@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import keys from "../keys.js";
+import { keys } from "../keys.js";
 
 const signup = async (req, res) => {
   const { username, password, isAdmin } = req.body;
@@ -129,7 +129,7 @@ const newPassword = async (req, res) => {
   }
 };
 
-export default {
+export const authController = {
   signup,
   login,
   resetPassword,

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import keys from "../keys.js";
+import { keys } from "../keys.js";
 import User from "../models/User.js";
 
 export default (req,res,next) => {
