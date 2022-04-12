@@ -189,6 +189,54 @@ const removeBulkItems = async (req, res) => {
   }
 };
 
+const getAllCategories = async(req, res) => {
+  try {
+    const categories = await Category.find();
+    return res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Unable to get all categories!" });
+  }
+};
+
+const getAllItems = async(req, res) => {
+  try {
+    const items = await MenuItem.find();
+    return res.status(200).json(items);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Unable to get all items!" });
+  }
+};
+
+const getSingleCategory = async(req, res) => {
+  const categoryId = req.params.categoryId;
+  try {
+    const category = await Category.findById({_id: categoryId}); 
+    if(category){
+      return res.status(200).json(category);
+    }
+    return res.json({message: 'Category does not exist!'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Unable to get category!" });
+  }
+};
+
+const getSingleItem = async(req, res) => {
+  const itemId = req.params.itemId;
+  try {
+    const item = await MenuItem.findById({_id: itemId}); 
+    if(item) {
+      return res.status(200).json(item);
+    }
+    return res.json({message: 'Item does not exist!'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Unable to get category!" });
+  }
+};
+
 export default {
   addCategory,
   editCategory,
@@ -197,4 +245,8 @@ export default {
   removeMenuItem,
   editMenuItem,
   removeBulkItems,
+  getAllCategories,
+  getAllItems,
+  getSingleCategory,
+  getSingleItem
 };
