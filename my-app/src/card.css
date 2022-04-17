@@ -1,0 +1,34 @@
+
+#myCard{
+    background-color: black;
+    
+}
+#myCard .card{
+    border-radius: 10%;
+}
+#myCard .image{
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
+}
+#myCard .cardBody{
+    font-family:  'Updock', cursive;
+    font-size: 2.6rem;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#myCard .text{
+    font-size: 2.3rem;
+}
+#myCard .button{
+    color: #fff;
+    font-family: 'Updock', cursive;
+    font-size: 2rem;
+    padding: 10px 30px;
+    border-radius: 20%;
+    background-color: blueviolet;
+}
+#myCard .button:hover{
+    background-color: black;
+}
