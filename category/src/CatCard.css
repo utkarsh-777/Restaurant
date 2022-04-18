@@ -14,7 +14,7 @@
 #myCard .bton{
     color: white;
     font-size: 2rem;
-    font-family: 'Updock',cursive;
+    font-family: 'Lobster',cursive;
     padding: 0 20px;
     margin: 10px 0;
     border: 2px solid yellow;
@@ -25,7 +25,7 @@
 }
 
 #myCard .title{
-    font-family:  'Arial Narrow', Arial, sans-serif;
+    font-family:  'Lobster', Arial, sans-serif;
     font-size: 1.7rem;
     margin: 10px 0 5px;
 }
