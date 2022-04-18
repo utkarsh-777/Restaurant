@@ -1,0 +1,15 @@
+a{
+    font-size: 6rem;
+    color: #fff ;
+    margin-left: 5%;
+    text-decoration: none;
+}
+ a:hover{
+     color: yellow;
+ }
+
+.header{
+    border-bottom: 1px solid yellow;
+    margin-bottom: 40px;
+}
+

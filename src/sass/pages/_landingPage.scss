@@ -1,0 +1,104 @@
+.landingPage {
+  font-size: 5rem;
+  padding: 3rem;
+  height: 100vh;
+  color: $color-white;
+  background-image: url(../images/landing.jpg);
+  background-size: cover;
+  background-position: top;
+  width: 100%;
+
+  &__main {
+    margin: 10rem;
+    margin-top: 5rem;
+    &--heading1 {
+      font-size: 7rem;
+      width: 45%;
+      margin: 4rem;
+    }
+
+    &--divider {
+      width: 10%;
+      position: relative;
+      padding-left: 10rem;
+      
+      &-1,
+      &-2,
+      &-3 {
+        border-left: 0.2rem solid $color-white;
+        height: 45rem;
+        margin-left: 3px;
+      }
+
+      &-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      &-2 {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+      }
+
+      &-3 {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+      }
+    }
+
+    &--heading2 {
+      font-size: 4rem;
+      width: 45%;
+      margin: 4rem;
+      padding-left: 3rem;
+      padding-top: 2rem;
+    }
+  }
+}
+
+.landingPage2 {
+    padding: 3rem;
+    position: relative;
+    background-color: $color-grey-dark;
+    height: 65rem;
+
+    &__main {
+        @include absCenter;
+        width: 80%;
+        font-size: 2rem;
+        text-align: center;
+
+        &--p1 {
+            height: 25rem;
+        }
+        &--p2 {
+            height: 25rem;
+        }
+        &--p3 {
+            height: 25rem;
+        }
+        &--p4 {
+            height: 25rem;
+        }
+
+        &--heading1 {
+            color: $color-white;
+            font-size: 3rem;
+        }
+        &--heading2 {
+            color: $color-white;
+            font-size: 3rem;
+        }
+        &--heading3 {
+            color: $color-white;
+            font-size: 3rem;
+        }
+        &--heading4 {
+            color: $color-white;
+            font-size: 3rem;
+        }
+    }
+}
