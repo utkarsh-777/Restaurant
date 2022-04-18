@@ -1,0 +1,31 @@
+#myCard{
+    text-align: center;
+    margin: 3% auto;
+    border: 2px solid yellow;
+    color: white;
+    border-radius: 10%;
+    background-color: black;
+    
+}
+#myCard .image{
+   width: 100%;
+   border-radius: 15%;
+}
+#myCard .bton{
+    color: white;
+    font-size: 2rem;
+    font-family: 'Updock',cursive;
+    padding: 0 20px;
+    margin: 10px 0;
+    border: 2px solid yellow;
+    border-radius: 20%;
+}
+.carBody{
+    border-radius: 20%;
+}
+
+#myCard .title{
+    font-family:  'Arial Narrow', Arial, sans-serif;
+    font-size: 1.7rem;
+    margin: 10px 0 5px;
+}
