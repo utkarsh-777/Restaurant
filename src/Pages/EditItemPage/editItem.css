@@ -1,0 +1,50 @@
+header{
+    font-family: 'Lobster',cursive;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-left: 30px;
+    color: white;
+    font-size: 5rem;
+}
+.content{
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.btn{
+    margin-bottom: 20px;
+    border-radius: 50px;
+}
+.vertical_line {
+    width: 10%;
+    position: relative;
+    margin-left: 7rem;
+}
+
+.vl_1,
+.vl_2,
+.vl_3 {
+    border-left: 0.1rem solid white;
+    height: 37rem;
+}
+
+.vl_1 {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: gold;
+}
+
+.vl_2 {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    color: gold;
+}
+
+.vl_3 {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: gold;
+}

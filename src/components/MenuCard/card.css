@@ -1,0 +1,25 @@
+#menuCard {
+  background-color: black;
+}
+#menuCard .card {
+  border-radius: 10%;
+}
+#menuCard .image {
+  height: auto;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#menuCard .text {
+  font-size: 2.3rem;
+}
+#menuCard .button {
+  color: #fff;
+  font-size: 2rem;
+  padding: 10px 30px;
+  border-radius: 20%;
+  background-color: blueviolet;
+}
+#menuCard .button:hover {
+  background-color: black;
+}

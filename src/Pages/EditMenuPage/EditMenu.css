@@ -1,0 +1,22 @@
+.editMenuBackground {
+    background-image: url(../../images/editpage_background.jpg);
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    background-color: rgb(22, 22, 22);
+    min-height: 100vh;
+}
+
+/* .content{
+    margin-top: 450px;
+} */
+
+header {
+    font-family: 'Lobster', cursive;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-left: 30px;
+    color: white;
+    font-size: 50px;
+}

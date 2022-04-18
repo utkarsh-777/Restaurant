@@ -1,0 +1,17 @@
+#cardCar{
+    color: white;
+    text-align: center;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+#cardCar Button{
+    color: white;
+    border-radius: 20px;
+    padding: 3% 10%;
+}
+
+#cardCar .image{
+    padding: 10px;
+  
+}

@@ -1,0 +1,32 @@
+#cont {
+  text-align: center;
+  min-height: 100%;
+  position: relative;
+}
+#cont .add {
+  height: 200px;
+  width: 200px;
+  background-color: black;
+  border: 2px solid yellow;
+  border-radius: 20%;
+}
+
+#myBtn {
+  margin-top: 15px;
+  color: White;
+  border: 2px solid yellow;
+  margin-bottom: 3%;
+  border-radius: 15%;
+}
+
+#cont .col-xs-4 {
+  display: inline-block;
+  margin: 3% 2% 0;
+}
+#more {
+  display: none;
+}
+
+.svg-inline--fa {
+  height: 7rem;
+}

@@ -33,9 +33,9 @@ const Footer = () => {
           <div className="footer__down--header">Lemon</div>
           <div className="footer__down--content">
             “One stop for all your hunger needs”
-            <div className="row">
-              <div className="col-2-of-4">+14 8080-2222</div>
-              <div className="col-2-of-4">food@resonance.com</div>
+            <div className="row" style={{marginBottom:'8rem'}}>
+              <div className="col-6">+14 8080-2222</div>
+              <div className="col-6">food@resonance.com</div>
             </div>
             <div>
               <span>
