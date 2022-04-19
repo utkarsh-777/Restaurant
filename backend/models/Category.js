@@ -9,6 +9,10 @@ const CategorySchema = mongoose.Schema({
     categoryDescription: {
         type: String,
     },
+    categoryPhoto: {
+        type: String,
+        default: 'https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg',
+    },
     items: [{
         type: ObjectId,
         ref: 'MenuItem'

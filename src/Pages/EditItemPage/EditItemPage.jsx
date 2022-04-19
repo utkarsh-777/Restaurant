@@ -1,9 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./editItem.css";
 import editPage from "../../images/editpage2.jpg";
 import { FaThumbsUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Axios from "../../axios";
 
 const EditItemPage = () => {
+  const token = localStorage.getItem("token");
+  const item = JSON.parse(localStorage.getItem("item"));
+  const navigate = useNavigate();
+
+  const [categories, setCategories] = useState([]);
+
+  const [name, setName] = useState(item ? item.name : "");
+  const [category, setCategory] = useState(item ? item.category : "");
+  const [price, setPrice] = useState(item ? item.price : "");
+  const [description, setDescription] = useState(item ? item.description : "");
+  const [image, setImage] = useState(item ? item.photo : "");
+
+  const handleEdit = () => {
+    if (!name || !category || !price || !description || !image) {
+      return alert("Enter all fields!");
+    }
+    console.log(category);
+    Axios.patch(
+      `/menu/edit-item/${item._id}`,
+      {
+        name,
+        price,
+        category: JSON.stringify(category),
+        description,
+        photo: image,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    ).then((res) => {
+      console.log(res.data);
+      if (res.data.message) {
+        setTimeout(() => {
+          navigate("/menu");
+        }, 1000);
+        return alert(res.data.message);
+      }
+      return alert("error");
+    });
+  };
+
+  useEffect(() => {
+    if (!token) {
+      localStorage.clear();
+      return navigate("/home");
+    }
+    if (!item) {
+      return navigate("/home");
+    }
+
+    Axios.get("/menu/get-all-categories").then((res) => {
+      setCategories(res.data);
+    });
+  }, []);
   return (
     <div
       style={{ backgroundColor: "black", color: "white", marginTop: "-2rem" }}
@@ -16,25 +74,39 @@ const EditItemPage = () => {
             <div>
               <h3 className="text-center">Edit items</h3>
             </div>
-            <select
-              className="form-select mb-5"
-              aria-label="Default select example"
-            >
-              <option selected>Select Catagory</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-            <div className="mb-5">
+            {categories && categories.length > 0 && (
               <select
                 className="form-select mb-5"
                 aria-label="Default select example"
+                onChange={(e) =>
+                  setCategory({
+                    id: JSON.parse(e.target.value)._id,
+                    name: JSON.parse(e.target.value).categoryType,
+                  })
+                }
               >
-                <option selected>Select Items</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {categories.map((category) => (
+                  <option
+                    selected={category._id === item.category.id}
+                    value={JSON.stringify(category)}
+                  >
+                    {category.categoryType}
+                  </option>
+                ))}
               </select>
+            )}
+
+            <div className="mb-5">
+              <label for="exampleFormControlTextarea4" className="form-label">
+                Name
+              </label>
+              <textarea
+                className="form-control"
+                id="exampleFormControlTextarea4"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                rows="1"
+              ></textarea>
             </div>
             <div className="mb-5">
               <label for="exampleFormControlTextarea3" className="form-label">
@@ -43,6 +115,8 @@ const EditItemPage = () => {
               <textarea
                 className="form-control"
                 id="exampleFormControlTextarea3"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 rows="1"
               ></textarea>
             </div>
@@ -52,6 +126,8 @@ const EditItemPage = () => {
               </label>
               <textarea
                 className="form-control"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 id="exampleFormControlTextarea4"
                 rows="1"
               ></textarea>
@@ -61,6 +137,8 @@ const EditItemPage = () => {
                 Image
               </label>
               <textarea
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
                 className="form-control"
                 id="exampleFormControlTextarea5"
                 rows="1"
@@ -87,7 +165,11 @@ const EditItemPage = () => {
       </div>
       <hr />
       <div className="text-center">
-        <button type="button" className="btn btn-outline-light btn-lg">
+        <button
+          onClick={handleEdit}
+          type="button"
+          className="btn btn-outline-light btn-lg"
+        >
           Done <FaThumbsUp />
         </button>
       </div>

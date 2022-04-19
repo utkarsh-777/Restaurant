@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Axios from "../../axios";
 
 const AdminLoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (!username || !password) {
+      return alert("Enter all fields!");
+    }
+
+    Axios.post(`/auth/login`, {
+      username,
+      password,
+    }).then((res) => {
+      if(res.data.error) {
+        return alert(res.data.error)
+      }
+      localStorage.setItem("token", res.data.token);
+      navigate("/home");
+    });
+  };
+
   return (
     <div>
-      <section className="section-book" style={{height:'100vh'}}>
+      <section className="section-book" style={{ height: "100vh" }}>
         <h1 className="heading-name">Lemon</h1>
         <div className="container mt-4">
           <div className="book">
             <div className="book__form">
-              <form action="#" className="form">
+              <div className="form">
                 <div className="u-margin-bottom-medium">
                   <h2 className="heading-secondary">Admin Login</h2>
                 </div>
@@ -17,6 +40,8 @@ const AdminLoginPage = () => {
                     type="text"
                     className="form__input"
                     id="name"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     placeholder="Username"
                     required
                   />
@@ -28,6 +53,8 @@ const AdminLoginPage = () => {
                   <input
                     type="password"
                     className="form__input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     placeholder="********"
                     required
@@ -37,9 +64,11 @@ const AdminLoginPage = () => {
                   </label>
                 </div>
                 <div className="form__group u-margin-bottom-medium">
-                  <button className="btn btn--green">Next Step &rarr;</button>
+                  <button onClick={handleLogin} className="btn">
+                    Login &rarr;
+                  </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
