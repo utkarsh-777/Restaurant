@@ -17,11 +17,11 @@ const Routing = () => {
       <Routes>
         <Route exact path='/' element={<LandingPage />} />
         <Route exact path='/admin-login' element={<AdminLoginPage />} /> 
-        <Route exact path='/category' element={<CategoryPage />} />
+        {/* <Route exact path='/category' element={<CategoryPage />} /> */}
         <Route exact path='/home' element={<CarouselPage />} />
         <Route exact path='/menu' element={<MenuPage />} />
         <Route exact path='/edit-item' element={<EditItemPage />} />
-        <Route exact path='/edit-menu' element={<EditMenuPage />} />
+        {/* <Route exact path='/edit-menu' element={<EditMenuPage />} /> */}
         <Route exact path='/add-item' element={<AddItemPage />} /> 
       </Routes>
     </Router>

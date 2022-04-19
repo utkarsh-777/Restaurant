@@ -14,6 +14,7 @@ router.delete("/remove-item/:itemId", requireLogin, menuController.removeMenuIte
 
 //open user routes
 router.get("/get-all-categories", menuController.getAllCategories);
+router.get("/get-category-items/:categoryId", menuController.getCategoryItems);
 router.get("/get-all-items", menuController.getAllItems);
 router.get("/get-category/:categoryId", menuController.getSingleCategory);
 router.get("/get-item/:itemId", menuController.getSingleItem);

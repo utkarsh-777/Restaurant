@@ -108,9 +108,7 @@ const addMenuItem = async (req, res) => {
 
 const editMenuItem = async (req, res) => {
   const itemId = req.params.itemId;
-  const { name, price, description, photo, ingredients, currency, category } =
-    req.body;
-
+  const { name, price, description, photo, category } = req.body;
   if (!name || !price) {
     return res.json({ message: "Provide all item details!" });
   }
@@ -123,9 +121,7 @@ const editMenuItem = async (req, res) => {
         price,
         description,
         photo,
-        ingredients,
-        category,
-        currency,
+        category: JSON.parse(category),
       });
       console.log(update);
 
@@ -152,12 +148,14 @@ const removeMenuItem = async (req, res) => {
 
       const category = await Category.findById({ _id: categoryId });
       if (category) {
-        const newCategoryItems = category.items.filter(ob => ob._id.toString() !== item._id.toString());
+        const newCategoryItems = category.items.filter(
+          (ob) => ob._id.toString() !== item._id.toString()
+        );
         console.log(newCategoryItems);
         const updateCategory = await category.update({
           items: newCategoryItems,
         });
-        console.log('here',updateCategory);
+        console.log("here", updateCategory);
 
         // const updateCategory = await category.updateOne({
         //   $pull: { items: { _id: item._id.toString() } },
@@ -180,7 +178,7 @@ const removeMenuItem = async (req, res) => {
 
 // const removeBulkItems = async (req, res) => {
 //   const itemArray = req.body;
-  
+
 //   try {
 //     const deleteItems = await MenuItem.deleteMany({ _id: { $in: itemArray } });
 //     return;
@@ -189,7 +187,7 @@ const removeMenuItem = async (req, res) => {
 //   }
 // };
 
-const getAllCategories = async(req, res) => {
+const getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();
     return res.status(200).json(categories);
@@ -199,7 +197,7 @@ const getAllCategories = async(req, res) => {
   }
 };
 
-const getAllItems = async(req, res) => {
+const getAllItems = async (req, res) => {
   try {
     const items = await MenuItem.find();
     return res.status(200).json(items);
@@ -209,28 +207,42 @@ const getAllItems = async(req, res) => {
   }
 };
 
-const getSingleCategory = async(req, res) => {
+const getSingleCategory = async (req, res) => {
   const categoryId = req.params.categoryId;
   try {
-    const category = await Category.findById({_id: categoryId}); 
-    if(category){
+    const category = await Category.findById({ _id: categoryId });
+    if (category) {
       return res.status(200).json(category);
     }
-    return res.json({message: 'Category does not exist!'});
+    return res.json({ message: "Category does not exist!" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Unable to get category!" });
   }
 };
 
-const getSingleItem = async(req, res) => {
+const getCategoryItems = async (req, res) => {
+  const categoryId = req.params.categoryId;
+  try {
+    const categoryItems = await MenuItem.find({ "category.id": categoryId });
+    if (categoryItems) {
+      return res.status(200).json(categoryItems);
+    }
+    return res.json({ message: "CategoryItems does not exist!" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Unable to get category!" });
+  }
+};
+
+const getSingleItem = async (req, res) => {
   const itemId = req.params.itemId;
   try {
-    const item = await MenuItem.findById({_id: itemId}); 
-    if(item) {
+    const item = await MenuItem.findById({ _id: itemId });
+    if (item) {
       return res.status(200).json(item);
     }
-    return res.json({message: 'Item does not exist!'});
+    return res.json({ message: "Item does not exist!" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Unable to get category!" });
@@ -246,7 +258,8 @@ export const menuController = {
   editMenuItem,
 
   getAllCategories,
+  getCategoryItems,
   getAllItems,
   getSingleCategory,
-  getSingleItem
+  getSingleItem,
 };

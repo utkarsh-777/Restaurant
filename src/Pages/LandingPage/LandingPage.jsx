@@ -29,7 +29,7 @@ const LandingPage = () => {
               <br /> drinks and more.....
               <br />
               <a
-                href="#any"
+                href="/home"
                 style={{ fontWeight: "bold" }}
                 className="btn btn--white btn--animated u-margin-top-medium"
               >
