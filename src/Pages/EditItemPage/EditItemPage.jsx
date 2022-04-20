@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./editItem.css";
 import editPage from "../../images/editpage2.jpg";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaThumbsUp, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../axios";
 
@@ -17,6 +17,30 @@ const EditItemPage = () => {
   const [price, setPrice] = useState(item ? item.price : "");
   const [description, setDescription] = useState(item ? item.description : "");
   const [image, setImage] = useState(item ? item.photo : "");
+
+  const handleDeleteItem = () => {
+    try {
+      Axios.delete(`/menu/remove-item/${item._id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          setTimeout(() => {
+            navigate('/menu')
+          },1000);
+          return alert(res.data.message);
+        })
+        .catch((err) => {
+          console.log(err);
+          return alert(err);
+        });
+    } catch (error) {
+      console.log(error);
+      return alert("error!");
+    }
+  };
 
   const handleEdit = () => {
     if (!name || !category || !price || !description || !image) {
@@ -40,9 +64,6 @@ const EditItemPage = () => {
     ).then((res) => {
       console.log(res.data);
       if (res.data.message) {
-        setTimeout(() => {
-          navigate("/menu");
-        }, 1000);
         return alert(res.data.message);
       }
       return alert("error");
@@ -50,11 +71,8 @@ const EditItemPage = () => {
   };
 
   useEffect(() => {
-    if (!token) {
+    if (!token || !item) {
       localStorage.clear();
-      return navigate("/home");
-    }
-    if (!item) {
       return navigate("/home");
     }
 
@@ -164,14 +182,27 @@ const EditItemPage = () => {
         </div>
       </div>
       <hr />
-      <div className="text-center">
-        <button
-          onClick={handleEdit}
-          type="button"
-          className="btn btn-outline-light btn-lg"
-        >
-          Done <FaThumbsUp />
-        </button>
+      <div className="text-center container">
+        <div className="row">
+          <div className="col">
+            <button
+              onClick={handleEdit}
+              type="button"
+              className="btn btn-outline-light btn-lg"
+            >
+              Done <FaThumbsUp />
+            </button>
+          </div>
+          <div className="col">
+            <button
+              onClick={handleDeleteItem}
+              type="button"
+              className="btn btn-outline-warning btn-lg"
+            >
+              Remove Item <FaTrashAlt />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

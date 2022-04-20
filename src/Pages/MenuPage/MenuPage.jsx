@@ -29,7 +29,7 @@ const MenuPage = () => {
                   {categoryItems.map((item) => (
                     <Col style={{margin:'1rem'}} xs={3}>
                       <CardComp
-                        text={`£${item.price}`}
+                        text={`£ ${item.price}`}
                         title={item.name}
                         link={item.photo}
                         item={item}

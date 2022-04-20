@@ -5,30 +5,25 @@ import { FaThumbsUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../axios";
 
-const AddItemPage = () => {
+const AddCategoryPage = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState([]);
-
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
-  const handleEdit = () => {
-    if (!name || !category || !price || !description || !image) {
+  const handleAddCategory = () => {
+    if (!name  || !description || !image) {
       return alert("Enter all fields!");
     }
-    console.log(category);
+
     Axios.post(
-      `/menu/add-item/${category.id}`,
+      `/menu/add-category`,
       {
-        name,
-        price,
-        description,
-        photo: image,
+        categoryType: name,
+        categoryDescription: description,
+        categoryPhoto: image,
       },
       {
         headers: {
@@ -37,11 +32,11 @@ const AddItemPage = () => {
       }
     ).then((res) => {
       console.log(res.data);
-      if (res.data.message) {
+      if (res.data.category) {
         setTimeout(() => {
-          navigate("/home");
+          navigate("/category");
         }, 1000);
-        return alert(res.data.message);
+        return alert(`${res.data.category.categoryType} added successfully!`);
       }
       return alert("error");
     });
@@ -52,10 +47,6 @@ const AddItemPage = () => {
       localStorage.clear();
       return navigate("/home");
     }
-
-    Axios.get("/menu/get-all-categories").then((res) => {
-      setCategories(res.data);
-    });
   }, []);
   return (
     <div
@@ -67,26 +58,8 @@ const AddItemPage = () => {
         <div className="row">
           <div className="col-5 content">
             <div>
-              <h3 className="text-center">Add items</h3>
+              <h3 className="text-center">Add Category</h3>
             </div>
-            {categories && categories.length > 0 && (
-              <select
-                className="form-select mb-5"
-                aria-label="Default select example"
-                onChange={(e) =>
-                  setCategory({
-                    id: JSON.parse(e.target.value)._id,
-                    name: JSON.parse(e.target.value).categoryType,
-                  })
-                }
-              >
-                {categories.map((category) => (
-                  <option key={category._id} value={JSON.stringify(category)}>
-                    {category.categoryType}
-                  </option>
-                ))}
-              </select>
-            )}
 
             <div className="mb-5">
               <label for="exampleFormControlTextarea4" className="form-label">
@@ -100,18 +73,7 @@ const AddItemPage = () => {
                 rows="1"
               ></textarea>
             </div>
-            <div className="mb-5">
-              <label for="exampleFormControlTextarea3" className="form-label">
-                Price
-              </label>
-              <textarea
-                className="form-control"
-                id="exampleFormControlTextarea3"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                rows="1"
-              ></textarea>
-            </div>
+
             <div className="mb-5">
               <label for="exampleFormControlTextarea4" className="form-label">
                 Description
@@ -126,7 +88,7 @@ const AddItemPage = () => {
             </div>
             <div className="mb-5">
               <label for="exampleFormControlTextarea5" className="form-label">
-                Image
+                Category Image
               </label>
               <textarea
                 value={image}
@@ -158,7 +120,7 @@ const AddItemPage = () => {
       <hr />
       <div className="text-center">
         <button
-          onClick={handleEdit}
+          onClick={handleAddCategory}
           type="button"
           className="btn btn-outline-light btn-lg"
         >
@@ -169,4 +131,4 @@ const AddItemPage = () => {
   );
 };
 
-export default AddItemPage;
+export default AddCategoryPage;

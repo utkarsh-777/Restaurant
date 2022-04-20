@@ -1,50 +1,73 @@
 import React, { useState, useEffect } from "react";
 import editPage from "../../images/editpage2.jpg";
 import "../EditItemPage/editItem.css";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaThumbsUp, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../axios";
 
-const AddItemPage = () => {
+const EditCategoryPage = () => {
   const token = localStorage.getItem("token");
+  const category = JSON.parse(localStorage.getItem("category"));
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState([]);
-
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
-  const handleEdit = () => {
-    if (!name || !category || !price || !description || !image) {
+  const handleDeleteCategory = () => {
+    //   console.log('delete')
+    try {
+      Axios.delete(`/menu/remove-category/${category._id}`, {
+        headers: {
+          Authorization: token,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.message) {
+          setTimeout(() => {
+            navigate("/category");
+          }, 1000);
+          return alert(res.data.message);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      alert("error");
+    }
+  };
+
+  const handleEditCategory = () => {
+    if (!name || !description || !image) {
       return alert("Enter all fields!");
     }
-    console.log(category);
-    Axios.post(
-      `/menu/add-item/${category.id}`,
+
+    Axios.patch(
+      `/menu/edit-category/${category._id}`,
       {
-        name,
-        price,
-        description,
-        photo: image,
+        categoryType: name,
+        categoryDescription: description,
+        categoryPhoto: image,
       },
       {
         headers: {
           Authorization: token,
         },
       }
-    ).then((res) => {
-      console.log(res.data);
-      if (res.data.message) {
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000);
-        return alert(res.data.message);
-      }
-      return alert("error");
-    });
+    )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.message) {
+          setTimeout(() => {
+            navigate("/category");
+          }, 1000);
+          return alert(`${res.data.message}`);
+        }
+        return alert("error");
+      })
+      .catch((err) => {
+        alert("error!");
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -52,10 +75,12 @@ const AddItemPage = () => {
       localStorage.clear();
       return navigate("/home");
     }
-
-    Axios.get("/menu/get-all-categories").then((res) => {
-      setCategories(res.data);
-    });
+    if (!category) {
+      return navigate("/category");
+    }
+    setName(category.categoryType);
+    setDescription(category.categoryDescription);
+    setImage(category.categoryPhoto);
   }, []);
   return (
     <div
@@ -67,26 +92,8 @@ const AddItemPage = () => {
         <div className="row">
           <div className="col-5 content">
             <div>
-              <h3 className="text-center">Add items</h3>
+              <h3 className="text-center">Edit Category</h3>
             </div>
-            {categories && categories.length > 0 && (
-              <select
-                className="form-select mb-5"
-                aria-label="Default select example"
-                onChange={(e) =>
-                  setCategory({
-                    id: JSON.parse(e.target.value)._id,
-                    name: JSON.parse(e.target.value).categoryType,
-                  })
-                }
-              >
-                {categories.map((category) => (
-                  <option key={category._id} value={JSON.stringify(category)}>
-                    {category.categoryType}
-                  </option>
-                ))}
-              </select>
-            )}
 
             <div className="mb-5">
               <label for="exampleFormControlTextarea4" className="form-label">
@@ -100,18 +107,7 @@ const AddItemPage = () => {
                 rows="1"
               ></textarea>
             </div>
-            <div className="mb-5">
-              <label for="exampleFormControlTextarea3" className="form-label">
-                Price
-              </label>
-              <textarea
-                className="form-control"
-                id="exampleFormControlTextarea3"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                rows="1"
-              ></textarea>
-            </div>
+
             <div className="mb-5">
               <label for="exampleFormControlTextarea4" className="form-label">
                 Description
@@ -126,7 +122,7 @@ const AddItemPage = () => {
             </div>
             <div className="mb-5">
               <label for="exampleFormControlTextarea5" className="form-label">
-                Image
+                Category Image
               </label>
               <textarea
                 value={image}
@@ -156,17 +152,30 @@ const AddItemPage = () => {
         </div>
       </div>
       <hr />
-      <div className="text-center">
-        <button
-          onClick={handleEdit}
-          type="button"
-          className="btn btn-outline-light btn-lg"
-        >
-          Done <FaThumbsUp />
-        </button>
+      <div className="text-center container">
+        <div className="row">
+          <div className="col">
+            <button
+              onClick={handleEditCategory}
+              type="button"
+              className="btn btn-outline-light btn-lg"
+            >
+              Done <FaThumbsUp />
+            </button>
+          </div>
+          <div className="col">
+            <button
+              onClick={handleDeleteCategory}
+              type="button"
+              className="btn btn-outline-warning btn-lg"
+            >
+              Remove Category <FaTrashAlt />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default AddItemPage;
+export default EditCategoryPage;
