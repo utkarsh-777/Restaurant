@@ -30,8 +30,8 @@ const LandingPage = () => {
               <br />
               <a
                 href="/home"
-                style={{ fontWeight: "bold" }}
-                className="btn btn--white btn--animated u-margin-top-medium"
+                style={{ fontWeight: "bold", backgroundColor:'white' }}
+                className="btn btn--animated u-margin-top-medium"
               >
                 explore&nbsp;&nbsp;&nbsp;&rarr;
               </a>
