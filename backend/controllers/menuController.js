@@ -27,7 +27,7 @@ const editCategory = async (req, res) => {
   const categoryId = req.params.categoryId;
   const { categoryType, categoryDescription } = req.body;
   try {
-    const category = await Category.findById({ _id: categoryId });
+    const category = await Category.findById(categoryId);
     if (category) {
       const update = await category.update({
         categoryType,
@@ -113,9 +113,14 @@ const editMenuItem = async (req, res) => {
     return res.json({ message: "Provide all item details!" });
   }
 
+  console.log(category);
+
   try {
     const item = await MenuItem.findById({ _id: itemId });
     if (item) {
+      const newCategoryId = JSON.parse(category).id;
+      const oldCategoryId = item.category.id;
+
       const update = await item.update({
         name,
         price,
@@ -125,11 +130,32 @@ const editMenuItem = async (req, res) => {
       });
       console.log(update);
 
+      console.log(newCategoryId, oldCategoryId);
+      if (newCategoryId !== oldCategoryId) {
+        const old_category = await Category.findById(oldCategoryId);
+        const new_category = await Category.findById(newCategoryId);
+
+        const update_old_category = await old_category.updateOne({
+          $pullAll: {
+            items: [item._id],
+          },
+        });
+
+        const update_new_category = await new_category.updateOne({
+          $push: {
+            items: item,
+          },
+        });
+
+        console.log(update_old_category, update_new_category);
+      }
+
       return res.status(200).json({ message: "Item updated successfully" });
     }
 
     return res.json({ message: "Item not found!" });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Unable to update item!" });
   }
 };
@@ -156,11 +182,6 @@ const removeMenuItem = async (req, res) => {
           items: newCategoryItems,
         });
         console.log("here", updateCategory);
-
-        // const updateCategory = await category.updateOne({
-        //   $pull: { items: { _id: item._id.toString() } },
-        // });
-        // console.log("here", updateCategory);
 
         const deleteItem = await item.delete();
         console.log(deleteItem);
