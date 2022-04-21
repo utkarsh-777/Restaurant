@@ -20,8 +20,7 @@ const CarouselPage = () => {
       <Header />
       <Container style={{ paddingBottom: "5rem" }}>
         <CarouselComp categories={categories.length > 0 && categories} />
-        {/* <div className="horizontal-scroll scrollbar scrollbar-juicy-peach"> */}
-        <div>
+        <div className="horizontal-scroll scrollbar scrollbar-juicy-peach">
           {categories && categories.length > 0 && (
             <>
               {categories.map((category) => (

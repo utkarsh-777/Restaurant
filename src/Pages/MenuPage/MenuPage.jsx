@@ -4,12 +4,17 @@ import { Container, Row, Col } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Axios from "../../axios";
+import { useNavigate } from "react-router-dom";
 
 const MenuPage = () => {
   const category = JSON.parse(localStorage.getItem("category"));
   const [categoryItems, setCategoryItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!category) {
+      return navigate("/home");
+    }
     Axios.get(`/menu/get-category-items/${category._id}`).then((res) => {
       console.log(res.data);
       setCategoryItems(res.data);
@@ -27,7 +32,7 @@ const MenuPage = () => {
               {categoryItems.length > 0 ? (
                 <>
                   {categoryItems.map((item) => (
-                    <Col style={{margin:'1rem'}} xs={3}>
+                    <Col style={{ margin: "1rem" }} xs={3}>
                       <CardComp
                         text={`£ ${item.price}`}
                         title={item.name}
@@ -37,7 +42,9 @@ const MenuPage = () => {
                     </Col>
                   ))}
                 </>
-              ): <span style={{color:'white'}}>NO ITEMS</span>}
+              ) : (
+                <span style={{ color: "white" }}>NO ITEMS</span>
+              )}
             </Row>
           </Container>
         </div>
