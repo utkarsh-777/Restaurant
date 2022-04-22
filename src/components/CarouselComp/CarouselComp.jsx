@@ -11,12 +11,9 @@ export default function CarouselComp(props) {
               className="image"
               src={category.categoryPhoto}
               alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>{category.categoryType}</h3>
-              <p>{category.categoryDescription}</p>
-            </Carousel.Caption>
+            />  
           </Carousel.Item>
+          
         ))}
     </Carousel>
   );

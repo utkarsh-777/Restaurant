@@ -17,9 +17,10 @@ const Category = () => {
     <div>
       <div style={{ backgroundColor: "black", minHeight:'100vh' }}>
         <Header />
-        <h1 id="cat">Categories</h1>
+        <h1 id="cat" className="text-center">Categories</h1>
         <View />
       </div>
+      <div style={{height:'12rem',backgroundColor:'black'}}></div>
       <Footer />
     </div>
   );

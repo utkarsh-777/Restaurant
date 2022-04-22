@@ -1,22 +1,29 @@
-import mongoose from 'mongoose';
-const {ObjectId} = mongoose.Schema.Types;
+import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema.Types;
 
-const CategorySchema = mongoose.Schema({
+const CategorySchema = mongoose.Schema(
+  {
     categoryType: {
-        type:String,
-        required: true,
+      type: String,
+      required: true,
     },
     categoryDescription: {
-        type: String,
+      type: String,
     },
     categoryPhoto: {
-        type: String,
-        default: 'https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg',
+      type: String,
+      required: true,
+      default:
+        "https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg",
     },
-    items: [{
+    items: [
+      {
         type: ObjectId,
-        ref: 'MenuItem'
-    }],
-},{timestamps: true});
+        ref: "MenuItem",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model("Category",CategorySchema);
+export default mongoose.model("Category", CategorySchema);

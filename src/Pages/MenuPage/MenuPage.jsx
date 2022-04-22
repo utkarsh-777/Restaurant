@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardComp from "../../components/MenuCard/MenuCard";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Axios from "../../axios";
@@ -23,31 +23,32 @@ const MenuPage = () => {
   return (
     <>
       <div>
-        <div style={{ backgroundColor: "black" }}>
+        <div style={{ backgroundColor: "black", minHeight:'80vh' }}>
           <Header />
           <br></br>
           <br></br>
           <Container>
-            <Row>
+            <div className="row">
               {categoryItems.length > 0 ? (
                 <>
                   {categoryItems.map((item) => (
-                    <Col style={{ margin: "1rem" }} xs={3}>
+                    <div className="col-3 mt-5 text-center">
                       <CardComp
                         text={`£ ${item.price}`}
                         title={item.name}
                         link={item.photo}
                         item={item}
                       />
-                    </Col>
+                    </div>
                   ))}
                 </>
               ) : (
-                <span style={{ color: "white" }}>NO ITEMS</span>
+                <span style={{ color: "white", textAlign:'center',fontSize:'3rem' }}>NO ITEMS</span>
               )}
-            </Row>
+            </div>
           </Container>
         </div>
+        <div style={{height:'12rem',backgroundColor:'black'}}></div>
         <Footer />
       </div>
     </>

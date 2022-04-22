@@ -2,8 +2,8 @@ import MenuItem from "../models/MenuItem.js";
 import Category from "../models/Category.js";
 
 const addCategory = async (req, res) => {
-  const { categoryType, categoryDescription } = req.body;
-  if (!categoryType || !categoryDescription) {
+  const { categoryType, categoryDescription, categoryPhoto } = req.body;
+  if (!categoryType || !categoryDescription || !categoryPhoto) {
     return res.json({ message: "Enter all the details!" });
   }
 
@@ -11,6 +11,7 @@ const addCategory = async (req, res) => {
     const newCategory = new Category({
       categoryType,
       categoryDescription,
+      categoryPhoto,
     });
     const saveCategory = await newCategory.save();
     console.log(saveCategory);
@@ -25,13 +26,17 @@ const addCategory = async (req, res) => {
 
 const editCategory = async (req, res) => {
   const categoryId = req.params.categoryId;
-  const { categoryType, categoryDescription } = req.body;
+  const { categoryType, categoryDescription, categoryPhoto } = req.body;
+  if (!categoryType || !categoryDescription || !categoryPhoto) {
+    return res.json({ message: "Enter all the details!" });
+  }
   try {
     const category = await Category.findById(categoryId);
     if (category) {
       const update = await category.update({
         categoryType,
         categoryDescription,
+        categoryPhoto,
       });
       console.log(update);
       return res
