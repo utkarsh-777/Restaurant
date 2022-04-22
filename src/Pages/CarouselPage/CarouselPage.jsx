@@ -37,7 +37,7 @@ const CarouselPage = () => {
           )}
         </div>
       </Container>
-      <div style={{ marginTop: "-2.5rem" }}>
+      <div>
         <Footer />
       </div>
     </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import editPage from "../../images/editpage2.jpg";
 import "../EditItemPage/editItem.css";
-import { FaThumbsUp, FaTrashAlt } from "react-icons/fa";
+import { FaThumbsUp, FaTrashAlt, FaBackward } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../axios";
+import Footer from "../../components/Footer/Footer";
 
 const EditCategoryPage = () => {
   const token = localStorage.getItem("token");
@@ -86,92 +87,110 @@ const EditCategoryPage = () => {
     <div
       style={{ backgroundColor: "black", color: "white", marginTop: "-2rem" }}
     >
-      <header>Lemon</header>
-      <hr />
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-5 content">
-            <div>
-              <h3 className="text-center">Edit Category</h3>
-            </div>
+      <div style={{ fontSize: "20px" }}>
+        <header style={{ fontFamily: "Lobster,cursive", fontSize: "60px" }}>
+          Lemon
+        </header>
+        <hr />
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-5 content">
+              <div>
+                <h3 className="text-center" style={{ fontSize: "30px" }}>
+                  Edit Category
+                </h3>
+              </div>
 
-            <div className="mb-5">
-              <label for="exampleFormControlTextarea4" className="form-label">
-                Name
-              </label>
-              <textarea
-                className="form-control"
-                id="exampleFormControlTextarea4"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                rows="1"
-              ></textarea>
-            </div>
+              <div className="mb-5">
+                <label for="exampleFormControlTextarea4" className="form-label">
+                  Name
+                </label>
+                <textarea
+                  className="form-control"
+                  id="exampleFormControlTextarea4"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  rows="1"
+                ></textarea>
+              </div>
 
-            <div className="mb-5">
-              <label for="exampleFormControlTextarea4" className="form-label">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                id="exampleFormControlTextarea4"
-                rows="1"
-              ></textarea>
+              <div className="mb-5">
+                <label for="exampleFormControlTextarea4" className="form-label">
+                  Description
+                </label>
+                <textarea
+                  className="form-control"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  id="exampleFormControlTextarea4"
+                  rows="1"
+                ></textarea>
+              </div>
+              <div className="mb-5">
+                <label for="exampleFormControlTextarea5" className="form-label">
+                  Category Image
+                </label>
+                <textarea
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  className="form-control"
+                  id="exampleFormControlTextarea5"
+                  rows="1"
+                ></textarea>
+              </div>
+              <div className="row" style={{ paddingTop: "50px" }}>
+                <div className="col-2">
+                  <button
+                    onClick={handleEditCategory}
+                    type="button"
+                    className="btn btn-outline-light btn-lg"
+                  >
+                    Done <FaThumbsUp />
+                  </button>
+                </div>
+                <div className="col-2">
+                  <button
+                    onClick={() => navigate("/category")}
+                    type="button"
+                    className="btn btn-outline-warning btn-lg"
+                  >
+                    Back <FaBackward />
+                  </button>
+                </div>
+                <div className="col-8">
+                  <button
+                    style={{ float: "right" }}
+                    onClick={handleDeleteCategory}
+                    type="button"
+                    className="btn btn-outline-danger btn-lg"
+                  >
+                    Remove Category <FaTrashAlt />
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="mb-5">
-              <label for="exampleFormControlTextarea5" className="form-label">
-                Category Image
-              </label>
-              <textarea
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="form-control"
-                id="exampleFormControlTextarea5"
-                rows="1"
-              ></textarea>
+            <div className="col-2">
+              <div className="vertical_line text-center">
+                <div className="vl_1"></div>
+                <div className="vl_2"></div>
+                <div className="vl_3"></div>
+              </div>
+            </div>
+            <div className="col-5 text-center">
+              <img
+                src={editPage}
+                alt=""
+                className="img-fluid"
+                height="500px"
+                width="400px"
+              />
             </div>
           </div>
-          <div className="col-2">
-            <div className="vertical_line text-center">
-              <div className="vl_1"></div>
-              <div className="vl_2"></div>
-              <div className="vl_3"></div>
-            </div>
-          </div>
-          <div className="col-5 text-center">
-            <img
-              src={editPage}
-              alt=""
-              className="img-fluid"
-              height="500px"
-              width="500px"
-            />
-          </div>
+          <div style={{height:'2rem'}}></div>
         </div>
-      </div>
-      <hr />
-      <div className="text-center container">
-        <div className="row">
-          <div className="col">
-            <button
-              onClick={handleEditCategory}
-              type="button"
-              className="btn btn-outline-light btn-lg"
-            >
-              Done <FaThumbsUp />
-            </button>
-          </div>
-          <div className="col">
-            <button
-              onClick={handleDeleteCategory}
-              type="button"
-              className="btn btn-outline-warning btn-lg"
-            >
-              Remove Category <FaTrashAlt />
-            </button>
-          </div>
+        <hr />
+        <div style={{ marginTop: "-1rem" }}>
+          <Footer />
         </div>
       </div>
     </div>

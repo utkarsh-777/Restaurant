@@ -51,14 +51,14 @@ const EditMenuPage = () => {
       style={{ backgroundColor: "black", color: "white", marginTop: "-2rem" }}
     >
       <div>
-        <header>Lemon</header>
+        <header style={{fontFamily:"Lobster,cursive",fontSize:"60px"}}>Lemon</header>
         <hr />
         <section
           className="editMenuBackground content"
           style={{ marginTop: "-1rem" }}
         >
           <div>
-            <h3 className="text-center mb-5" style={{ fontSize: "3rem" }}>
+            <h3 className="text-center mb-5" style={{fontSize:"30px"}}>
               Edit menue items
             </h3>
           </div>
@@ -79,9 +79,9 @@ const EditMenuPage = () => {
                         >
                           <FaPen /> Edit
                         </button>
-                        <button
+                        <button 
                           onClick={() => handleRemoveItem(item)}
-                          className="btn btn-lg btn-outline-light m-2"
+                          className="btn btn-lg btn-danger m-2 remove_button"
                         >
                           <FaTrash /> Remove
                         </button>

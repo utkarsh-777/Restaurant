@@ -27,7 +27,7 @@ const AdminLoginPage = () => {
   return (
     <div>
       <section className="section-book" style={{ height: "100vh" }}>
-        <h1 className="heading-name">Lemon</h1>
+        <h1 className="heading-name" style={{fontFamily:"Lobster,cursive",fontSize:"60px"}}>Lemon</h1>
         <div className="container mt-4">
           <div className="book">
             <div className="book__form">
@@ -63,8 +63,8 @@ const AdminLoginPage = () => {
                     Password
                   </label>
                 </div>
-                <div className="form__group u-margin-bottom-medium">
-                  <button onClick={handleLogin} className="btn">
+                <div className="form__group u-margin-bottom-medium" style={{paddingTop:"20px"}}>
+                  <button onClick={handleLogin} className="btn btn-dark btn-lg">
                     Login &rarr;
                   </button>
                 </div>
