@@ -1,6 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./CarouselCard.css";
+import "./carouselCard.css";
 
 export default function CarouselCard(props) {
   const navigate = useNavigate();
