@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "../../axios";
+import Axios from "../../../axios";
 
 const AdminLoginPage = () => {
   const [username, setUsername] = useState("");

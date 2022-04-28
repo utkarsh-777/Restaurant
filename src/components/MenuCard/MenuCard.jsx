@@ -1,6 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./card.css";
+import "./MenuCard.css";
 
 export default function CardComp(props) {
   const token = localStorage.getItem("token");

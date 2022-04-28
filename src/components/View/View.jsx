@@ -1,5 +1,5 @@
 import CatCard from "./CatCard";
-import "./view.css";
+import "./View.css";
 import { Container, Col, Button, Row } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";

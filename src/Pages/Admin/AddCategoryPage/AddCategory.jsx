@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import editPage from "../../images/editpage2.jpg";
-import "../EditItemPage/editItem.css";
-import "../EditItemPage/editItem.css";
+import editPage from "../../../images/editpage2.jpg";
+import "../../../css/style.css";
 import { FaThumbsUp, FaBackward } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Axios from "../../axios";
-import Footer from "../../components/Footer/Footer";
+import Axios from "../../../axios";
+import Footer from "../../../components/Footer/Footer";
 
 const AddCategoryPage = () => {
   const token = localStorage.getItem("token");
@@ -49,6 +48,7 @@ const AddCategoryPage = () => {
       localStorage.clear();
       return navigate("/home");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div

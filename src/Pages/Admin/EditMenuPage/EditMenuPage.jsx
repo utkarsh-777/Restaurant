@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./EditMenu.css";
+import "../../../css/style.css";
 import { FaPen, FaTrash } from "react-icons/fa";
-import Axios from "../../axios";
+import Axios from "../../../axios";
 import { useNavigate } from "react-router-dom";
 
 const EditMenuPage = () => {
@@ -45,21 +45,22 @@ const EditMenuPage = () => {
       return navigate("/home");
     }
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div
       style={{ backgroundColor: "black", color: "white", marginTop: "-2rem" }}
     >
       <div>
-        <header style={{fontFamily:"Lobster,cursive",fontSize:"60px"}}>Lemon</header>
+        <header className="head-emp" style={{fontFamily:"Lobster,cursive",fontSize:"60px"}}>Lemon</header>
         <hr />
         <section
-          className="editMenuBackground content"
+          className="editMenuBackground-emp content"
           style={{ marginTop: "-1rem" }}
         >
           <div>
             <h3 className="text-center mb-5" style={{fontSize:"30px"}}>
-              Edit menue items
+              Edit menu items
             </h3>
           </div>
           <div className="container-fluid">

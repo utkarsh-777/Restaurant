@@ -1,85 +1,88 @@
-import React, { useEffect, useState } from "react";
-import "./editItem.css";
-import editPage from "../../images/editpage2.jpg";
+import React, { useState, useEffect } from "react";
+import editPage from "../../../images/editpage2.jpg";
+import "../../../css/style.css";
 import { FaThumbsUp, FaTrashAlt, FaBackward } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Axios from "../../axios";
-import Footer from "../../components/Footer/Footer";
+import Axios from "../../../axios";
+import Footer from "../../../components/Footer/Footer";
 
-const EditItemPage = () => {
+const EditCategoryPage = () => {
   const token = localStorage.getItem("token");
-  const item = JSON.parse(localStorage.getItem("item"));
+  const category = JSON.parse(localStorage.getItem("category"));
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
-  const [name, setName] = useState(item ? item.name : "");
-  const [category, setCategory] = useState(item ? item.category : "");
-  const [price, setPrice] = useState(item ? item.price : "");
-  const [description, setDescription] = useState(item ? item.description : "");
-  const [image, setImage] = useState(item ? item.photo : "");
-
-  const handleDeleteItem = () => {
+  const handleDeleteCategory = () => {
+    //   console.log('delete')
     try {
-      Axios.delete(`/menu/remove-item/${item._id}`, {
+      Axios.delete(`/menu/remove-category/${category._id}`, {
         headers: {
           Authorization: token,
         },
-      })
-        .then((res) => {
-          console.log(res.data);
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.message) {
           setTimeout(() => {
-            navigate("/menu");
+            navigate("/category");
           }, 1000);
           return alert(res.data.message);
-        })
-        .catch((err) => {
-          console.log(err);
-          return alert(err);
-        });
+        }
+      });
     } catch (error) {
       console.log(error);
-      return alert("error!");
+      alert("error");
     }
   };
 
-  const handleEdit = () => {
-    if (!name || !category || !price || !description || !image) {
+  const handleEditCategory = () => {
+    if (!name || !description || !image) {
       return alert("Enter all fields!");
     }
-    console.log(category);
+
     Axios.patch(
-      `/menu/edit-item/${item._id}`,
+      `/menu/edit-category/${category._id}`,
       {
-        name,
-        price,
-        category: JSON.stringify(category),
-        description,
-        photo: image,
+        categoryType: name,
+        categoryDescription: description,
+        categoryPhoto: image,
       },
       {
         headers: {
           Authorization: token,
         },
       }
-    ).then((res) => {
-      console.log(res.data);
-      if (res.data.message) {
-        return alert(res.data.message);
-      }
-      return alert("error");
-    });
+    )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.message) {
+          setTimeout(() => {
+            navigate("/category");
+          }, 1000);
+          return alert(`${res.data.message}`);
+        }
+        return alert("error");
+      })
+      .catch((err) => {
+        alert("error!");
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    if (!token || !item) {
+    if (!token) {
       localStorage.clear();
       return navigate("/home");
     }
-
-    Axios.get("/menu/get-all-categories").then((res) => {
-      setCategories(res.data);
-    });
+    if (!category) {
+      return navigate("/category");
+    }
+    setName(category.categoryType);
+    setDescription(category.categoryDescription);
+    setImage(category.categoryPhoto);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div
@@ -95,30 +98,9 @@ const EditItemPage = () => {
             <div className="col-5 content">
               <div>
                 <h3 className="text-center" style={{ fontSize: "30px" }}>
-                  Edit items
+                  Edit Category
                 </h3>
               </div>
-              {categories && categories.length > 0 && (
-                <select
-                  className="form-select mb-5"
-                  aria-label="Default select example"
-                  onChange={(e) =>
-                    setCategory({
-                      id: JSON.parse(e.target.value)._id,
-                      name: JSON.parse(e.target.value).categoryType,
-                    })
-                  }
-                >
-                  {categories.map((category) => (
-                    <option
-                      selected={category._id === item.category.id}
-                      value={JSON.stringify(category)}
-                    >
-                      {category.categoryType}
-                    </option>
-                  ))}
-                </select>
-              )}
 
               <div className="mb-5">
                 <label for="exampleFormControlTextarea4" className="form-label">
@@ -132,18 +114,7 @@ const EditItemPage = () => {
                   rows="1"
                 ></textarea>
               </div>
-              <div className="mb-5">
-                <label for="exampleFormControlTextarea3" className="form-label">
-                  Price
-                </label>
-                <textarea
-                  className="form-control"
-                  id="exampleFormControlTextarea3"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  rows="1"
-                ></textarea>
-              </div>
+
               <div className="mb-5">
                 <label for="exampleFormControlTextarea4" className="form-label">
                   Description
@@ -158,7 +129,7 @@ const EditItemPage = () => {
               </div>
               <div className="mb-5">
                 <label for="exampleFormControlTextarea5" className="form-label">
-                  Image
+                  Category Image
                 </label>
                 <textarea
                   value={image}
@@ -168,11 +139,10 @@ const EditItemPage = () => {
                   rows="1"
                 ></textarea>
               </div>
-
               <div className="row" style={{ paddingTop: "50px" }}>
                 <div className="col-2">
                   <button
-                    onClick={handleEdit}
+                    onClick={handleEditCategory}
                     type="button"
                     className="btn btn-outline-light btn-lg"
                   >
@@ -181,7 +151,7 @@ const EditItemPage = () => {
                 </div>
                 <div className="col-2">
                   <button
-                    onClick={() => navigate("/menu")}
+                    onClick={() => navigate("/category")}
                     type="button"
                     className="btn btn-outline-warning btn-lg"
                   >
@@ -191,11 +161,11 @@ const EditItemPage = () => {
                 <div className="col-8">
                   <button
                     style={{ float: "right" }}
-                    onClick={handleDeleteItem}
+                    onClick={handleDeleteCategory}
                     type="button"
                     className="btn btn-outline-danger btn-lg"
                   >
-                    Remove Item <FaTrashAlt />
+                    Remove Category <FaTrashAlt />
                   </button>
                 </div>
               </div>
@@ -217,14 +187,15 @@ const EditItemPage = () => {
               />
             </div>
           </div>
+          <div style={{height:'2rem'}}></div>
         </div>
         <hr />
-      </div>
-      <div style={{ marginTop: "-1rem" }}>
-        <Footer />
+        <div style={{ marginTop: "-1rem" }}>
+          <Footer />
+        </div>
       </div>
     </div>
   );
 };
 
-export default EditItemPage;
+export default EditCategoryPage;

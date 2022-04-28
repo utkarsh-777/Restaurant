@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./header.css";
+import "./Header.css";
 import { FaBackward } from "react-icons/fa";
 
 const Header = () => {
