@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import View from "../../components/View/View";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import View from "../../../components/View/View";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 
 const Category = () => {
@@ -12,6 +12,7 @@ const Category = () => {
     if(!token) {
       navigate('/home')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div>

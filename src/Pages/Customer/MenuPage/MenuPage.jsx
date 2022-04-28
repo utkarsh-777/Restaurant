@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CardComp from "../../components/MenuCard/MenuCard";
+import CardComp from "../../../components/MenuCard/MenuCard";
 import { Container } from "react-bootstrap";
-import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
-import Axios from "../../axios";
+import Footer from "../../../components/Footer/Footer";
+import Header from "../../../components/Header/Header";
+import Axios from "../../../axios";
 import { useNavigate } from "react-router-dom";
 
 const MenuPage = () => {
@@ -19,6 +19,7 @@ const MenuPage = () => {
       console.log(res.data);
       setCategoryItems(res.data);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
