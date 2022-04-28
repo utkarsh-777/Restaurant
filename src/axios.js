@@ -1,4 +1,4 @@
 import axios from "axios";
-const Axios = axios.create({baseURL: "http://localhost:5000/api"});
+const Axios = axios.create({baseURL: "https://restaurant-backend-007.herokuapp.com/api"});
 
 export default Axios;
